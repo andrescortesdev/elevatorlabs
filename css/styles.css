@@ -527,6 +527,8 @@ button {
 
 .marquee {
   overflow: hidden;
+  /* Espacio vertical para que el "lift" del hover (translateY) no recorte el logo */
+  padding-block: 0.9rem;
   mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
 }
