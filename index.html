@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;650;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=commit2" />
+<link rel="stylesheet" href="css/styles.css?v=commit3" />
 
 <!-- Open Graph -->
 <meta property="og:site_name" content="Elevator Labs" />
@@ -752,13 +752,16 @@
         </div>
       </div>
 
-      <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST" data-reveal style="--reveal-delay:.1s">
-        <!-- Web3Forms: reemplaza el value por tu access key (gratis en https://web3forms.com/#start). Los mensajes llegan a info@elevatorlabs.io -->
-        <input type="hidden" name="access_key" value="TU_ACCESS_KEY_DE_WEB3FORMS" />
-        <input type="hidden" name="subject" value="Nuevo mensaje desde elevatorlabs.io" />
-        <input type="hidden" name="from_name" value="Web Elevator Labs" />
+      <form class="contact-form" id="contactForm" action="https://formsubmit.co/ajax/info@elevatorlabs.io" method="POST" data-reveal style="--reveal-delay:.1s">
+        <!-- FormSubmit.co: sin cuenta ni clave, los mensajes llegan a info@elevatorlabs.io.
+             IMPORTANTE: la PRIMERA vez que alguien envíe el formulario, FormSubmit enviará
+             un correo de activación a info@elevatorlabs.io. Ábrelo y confirma una sola vez;
+             a partir de ahí todos los mensajes llegan automáticamente. -->
+        <input type="hidden" name="_subject" value="Nuevo mensaje desde elevatorlabs.io" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
         <!-- Honeypot anti-spam: debe quedar vacío -->
-        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none !important;" aria-hidden="true" />
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none !important;" aria-hidden="true" />
 
         <div class="form-field">
           <label for="name">Nombre</label>
@@ -834,6 +837,6 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=commit2"></script>
+<script src="js/main.js?v=commit3"></script>
 </body>
 </html>

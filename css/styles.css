@@ -844,6 +844,8 @@ button {
 }
 
 .method-card {
+  position: relative;
+  isolation: isolate;
   flex: 0 0 clamp(230px, 78vw, 300px);
   scroll-snap-align: center;
   display: flex;
@@ -856,14 +858,46 @@ button {
   box-shadow: 0 14px 34px -22px rgba(11, 18, 32, 0.14);
   opacity: 0.5;
   transform: scale(0.93);
-  transition: transform var(--dur-med) var(--ease-spring), opacity var(--dur-med) ease, box-shadow var(--dur-med) var(--ease-spring), border-color var(--dur-fast) ease;
+  transition: transform var(--dur-slow) var(--ease-spring), opacity var(--dur-slow) ease, box-shadow var(--dur-slow) var(--ease-spring), border-color var(--dur-med) ease;
+}
+
+/* El gradiente vive en un ::before para poder desvanecerlo con transición:
+   un background con gradiente no es animable, pero su opacity sí. Así el
+   efecto de la carta seleccionada entra/sale de forma suave, no de golpe. */
+.method-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--gradient-brand);
+  opacity: 0;
+  transition: opacity var(--dur-slow) ease;
+  pointer-events: none;
+}
+
+.method-card.is-active::before {
+  opacity: 1;
+}
+
+/* El contenido siempre por encima del overlay del gradiente */
+.method-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Las letras e iconos cambian de color gradualmente, en sync con el gradiente */
+.method-card-icon,
+.method-card-num,
+.method-card-tag,
+.method-card-title,
+.method-card-desc {
+  transition: color var(--dur-slow) ease, background-color var(--dur-slow) ease;
 }
 
 .method-card.is-active {
   opacity: 1;
   transform: scale(1);
   border-color: transparent;
-  background: var(--gradient-brand);
   box-shadow: 0 22px 48px -18px rgba(11, 18, 32, 0.28);
 }
 

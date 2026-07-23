@@ -254,9 +254,10 @@
   }
 
   /* ---------------------------------------------------------
-     Contact form — submits to Web3Forms (https://web3forms.com)
+     Contact form — submits to FormSubmit (https://formsubmit.co)
      via fetch so we stay on-page and show inline feedback.
-     The access_key lives in the hidden input in index.html.
+     The target email is in the form's action (/ajax/ endpoint).
+     FormSubmit returns { success: "true", message: "..." }.
   --------------------------------------------------------- */
   const contactForm = document.getElementById("contactForm");
   const formSuccess = document.getElementById("formSuccess");
@@ -283,7 +284,7 @@
         });
         const data = await response.json().catch(() => ({}));
 
-        if (response.ok && data.success) {
+        if (response.ok && (data.success === true || data.success === "true")) {
           formSuccess.classList.add("is-visible");
           contactForm.reset();
         } else {
