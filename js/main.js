@@ -254,15 +254,49 @@
   }
 
   /* ---------------------------------------------------------
-     Contact form (static demo — replace action with real backend)
+     Contact form — submits to Web3Forms (https://web3forms.com)
+     via fetch so we stay on-page and show inline feedback.
+     The access_key lives in the hidden input in index.html.
   --------------------------------------------------------- */
   const contactForm = document.getElementById("contactForm");
   const formSuccess = document.getElementById("formSuccess");
+  const formError = document.getElementById("formError");
   if (contactForm) {
-    contactForm.addEventListener("submit", (e) => {
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const submitLabel = submitBtn ? submitBtn.textContent : "";
+
+    contactForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      formSuccess.classList.add("is-visible");
-      contactForm.reset();
+      formSuccess.classList.remove("is-visible");
+      if (formError) formError.classList.remove("is-visible");
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Enviando…";
+      }
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: new FormData(contactForm),
+        });
+        const data = await response.json().catch(() => ({}));
+
+        if (response.ok && data.success) {
+          formSuccess.classList.add("is-visible");
+          contactForm.reset();
+        } else {
+          throw new Error(data.message || "Request failed");
+        }
+      } catch (err) {
+        if (formError) formError.classList.add("is-visible");
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitLabel;
+        }
+      }
     });
   }
 

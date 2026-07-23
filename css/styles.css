@@ -1374,6 +1374,11 @@ button {
   display: block;
 }
 
+.form-error {
+  background: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+}
+
 @media (min-width: 1024px) {
   .contact-grid {
     grid-template-columns: 0.9fr 1.1fr;
