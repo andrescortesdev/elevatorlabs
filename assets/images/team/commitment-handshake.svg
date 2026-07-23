@@ -1,0 +1,70 @@
+<svg width="480" height="560" viewBox="0 0 480 560" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="chBg" x1="0" y1="0" x2="480" y2="560" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0F2A44"/>
+      <stop offset="1" stop-color="#080F1E"/>
+    </linearGradient>
+    <radialGradient id="chGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(240 200) rotate(90) scale(280)">
+      <stop offset="0" stop-color="#2DD4BF" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#2DD4BF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="chTeal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2DD4BF"/>
+      <stop offset="1" stop-color="#14B8A6"/>
+    </linearGradient>
+    <linearGradient id="chBlue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#38BDF8"/>
+      <stop offset="1" stop-color="#0EA5E9"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="480" height="560" rx="32" fill="url(#chBg)"/>
+  <rect width="480" height="560" rx="32" fill="url(#chGlow)"/>
+
+  <!-- floor shadow -->
+  <ellipse cx="240" cy="472" rx="150" ry="16" fill="#000000" opacity="0.25"/>
+
+  <!-- sparkles -->
+  <g fill="#2DD4BF">
+    <path d="M150 120 l4 11 11 4 -11 4 -4 11 -4 -11 -11 -4 11 -4z" opacity="0.85"/>
+    <path d="M340 150 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" opacity="0.7"/>
+  </g>
+  <g fill="#38BDF8">
+    <path d="M240 90 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" opacity="0.8"/>
+    <circle cx="110" cy="200" r="4" opacity="0.6"/>
+    <circle cx="375" cy="230" r="3" opacity="0.6"/>
+  </g>
+
+  <!-- provider (right figure, blue) -->
+  <g>
+    <path d="M266 300c0-30 20-52 54-52s54 22 54 52v138c0 10-8 18-18 18H284c-10 0-18-8-18-18z" fill="url(#chBlue)"/>
+    <circle cx="320" cy="196" r="46" fill="url(#chBlue)"/>
+    <!-- reaching arm -->
+    <path d="M270 320c-18 6-32 18-40 34l-16 30" stroke="url(#chBlue)" stroke-width="26" stroke-linecap="round" fill="none"/>
+    <!-- face -->
+    <circle cx="304" cy="190" r="5" fill="#0B1220"/>
+    <circle cx="334" cy="190" r="5" fill="#0B1220"/>
+    <path d="M300 210c8 9 24 9 32 0" stroke="#0B1220" stroke-width="4" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- client (left figure, teal) -->
+  <g>
+    <path d="M106 300c0-30 20-52 54-52s54 22 54 52v138c0 10-8 18-18 18H124c-10 0-18-8-18-18z" fill="url(#chTeal)"/>
+    <circle cx="160" cy="196" r="46" fill="url(#chTeal)"/>
+    <!-- reaching arm -->
+    <path d="M210 320c18 6 32 18 40 34l16 30" stroke="url(#chTeal)" stroke-width="26" stroke-linecap="round" fill="none"/>
+    <!-- face -->
+    <circle cx="146" cy="190" r="5" fill="#0B1220"/>
+    <circle cx="176" cy="190" r="5" fill="#0B1220"/>
+    <path d="M142 210c8 9 24 9 32 0" stroke="#0B1220" stroke-width="4" stroke-linecap="round" fill="none"/>
+  </g>
+
+  <!-- handshake -->
+  <g>
+    <ellipse cx="240" cy="384" rx="26" ry="16" fill="#F5F7FA"/>
+    <ellipse cx="240" cy="384" rx="26" ry="16" fill="url(#chGlow)" opacity="0.4"/>
+  </g>
+
+  <!-- small celebration sparkle right above the handshake -->
+  <path d="M240 330 l5 13 13 5 -13 5 -5 13 -5 -13 -13 -5 13 -5z" fill="#F5F7FA" opacity="0.9"/>
+</svg>

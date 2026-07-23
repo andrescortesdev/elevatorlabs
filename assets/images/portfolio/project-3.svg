@@ -1,0 +1,21 @@
+<svg width="480" height="600" viewBox="0 0 480 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="480" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#241236"/>
+      <stop offset="1" stop-color="#080F1E"/>
+    </linearGradient>
+    <radialGradient id="glow3" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(340 160) rotate(90) scale(260)">
+      <stop offset="0" stop-color="#A855F7" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#A855F7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="480" height="600" fill="url(#bg3)"/>
+  <rect width="480" height="600" fill="url(#glow3)"/>
+  <g opacity="0.5" stroke="#A855F7" stroke-width="1">
+    <line x1="0" y1="150" x2="480" y2="150"/>
+    <line x1="0" y1="300" x2="480" y2="300"/>
+    <line x1="0" y1="450" x2="480" y2="450"/>
+  </g>
+  <rect x="60" y="230" width="360" height="140" rx="18" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.14)"/>
+  <text x="240" y="310" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#F5F7FA" text-anchor="middle">Pulse Analytics</text>
+</svg>

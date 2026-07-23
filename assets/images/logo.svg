@@ -1,0 +1,11 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="brandGrad" x1="0" y1="40" x2="40" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2DD4BF"/>
+      <stop offset="1" stop-color="#0EA5E9"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#brandGrad)"/>
+  <path d="M11 27L19 15L23 20L29 11" stroke="#080F1E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M23 11H29V17" stroke="#080F1E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

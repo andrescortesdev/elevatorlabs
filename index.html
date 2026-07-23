@@ -1,360 +1,830 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Elevator Labs — El futuro está ascendiendo</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg-0:#050810;
-    --bg-1:#0a1020;
-    --bg-2:#0e1730;
-    --cyan:#2dd4e8;
-    --cyan-dim:#1a8ea3;
-    --blue:#3b7bf6;
-    --ink-0:#eaf6f8;
-    --ink-1:#9fb4c4;
-    --ink-2:#5b7185;
-    --line:rgba(45,212,232,0.14);
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html,body{height:100%;}
-  body{
-    background:var(--bg-0);
-    color:var(--ink-0);
-    font-family:'Chakra Petch',sans-serif;
-    overflow-x:hidden;
-    position:relative;
-  }
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
-  }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Elevator Labs | Desarrollo de Software, Web, Apps y Data en LATAM</title>
+<meta name="description" content="Elevator Labs es un estudio de desarrollo de software en LATAM: desarrollo web y de aplicaciones móviles, diseño de producto (UI/UX), data y analítica, cloud y estrategia digital para escalar tu negocio." />
+<meta name="keywords" content="desarrollo de software, desarrollo web, aplicaciones móviles, diseño de producto, UI/UX, data, analítica de datos, ingeniería de software, cloud, AWS, DevOps, estrategia digital, consultoría de software, fábrica de software, LATAM, machine learning, inteligencia artificial" />
+<meta name="author" content="Elevator Labs" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#0b1220" />
+<link rel="canonical" href="https://elevatorlabs.io/" />
 
-  /* ---------- background layers ---------- */
-  .bg-grid{
-    position:fixed; inset:0;
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size:56px 56px;
-    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 35%, black 20%, transparent 75%);
-    mask-image: radial-gradient(ellipse 90% 70% at 50% 35%, black 20%, transparent 75%);
-    z-index:0;
-  }
-  .bg-glow{
-    position:fixed; inset:0; z-index:0; pointer-events:none;
-    background:
-      radial-gradient(600px 380px at 50% 8%, rgba(45,212,232,0.16), transparent 65%),
-      radial-gradient(900px 500px at 85% 90%, rgba(59,123,246,0.10), transparent 60%),
-      radial-gradient(700px 400px at 10% 85%, rgba(45,212,232,0.06), transparent 60%);
-  }
-  .bg-vignette{
-    position:fixed; inset:0; z-index:0; pointer-events:none;
-    background: radial-gradient(ellipse 120% 100% at 50% 50%, transparent 55%, var(--bg-0) 100%);
-  }
+<link rel="icon" type="image/svg+xml" href="assets/images/logos/icono.svg" />
+<link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
+<link rel="apple-touch-icon" href="assets/images/logos/icono.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;650;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css?v=commit2" />
 
-  /* rising particles = the shaft */
-  .particles{
-    position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
-  }
-  .particle{
-    position:absolute;
-    bottom:-10px;
-    width:2px; height:2px;
-    border-radius:50%;
-    background:var(--cyan);
-    box-shadow:0 0 6px 1px rgba(45,212,232,0.8);
-    opacity:0;
-    animation:rise linear infinite;
-  }
-  @keyframes rise{
-    0%{ transform:translateY(0) scale(0.6); opacity:0; }
-    8%{ opacity:0.9; }
-    90%{ opacity:0.5; }
-    100%{ transform:translateY(-110vh) scale(1); opacity:0; }
-  }
+<!-- Open Graph -->
+<meta property="og:site_name" content="Elevator Labs" />
+<meta property="og:title" content="Elevator Labs | Desarrollo de Software, Web, Apps y Data" />
+<meta property="og:description" content="Estudio de desarrollo de software en LATAM: web, apps móviles, diseño de producto, data y cloud para llevar tu negocio al siguiente nivel." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://elevatorlabs.io/" />
+<meta property="og:locale" content="es_LA" />
+<meta property="og:image" content="https://elevatorlabs.io/assets/images/team/commitment.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="800" />
+<meta property="og:image:alt" content="Elevator Labs — estudio de desarrollo de software" />
 
-  /* ---------- floor indicator rail (signature element) ---------- */
-  .rail{
-    position:fixed;
-    right:clamp(14px, 4vw, 56px);
-    top:50%;
-    transform:translateY(-50%);
-    z-index:5;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-    font-family:'JetBrains Mono',monospace;
-  }
-  .rail-track{
-    position:relative;
-    width:1px;
-    height:220px;
-    background:linear-gradient(to bottom, transparent, var(--cyan-dim) 15%, var(--cyan-dim) 85%, transparent);
-    opacity:0.5;
-  }
-  .rail-car{
-    position:absolute;
-    left:50%; transform:translateX(-50%);
-    width:9px; height:9px;
-    border-radius:2px;
-    background:var(--cyan);
-    box-shadow:0 0 12px 3px rgba(45,212,232,0.75);
-    animation:ascend 5.5s cubic-bezier(.65,0,.35,1) infinite;
-  }
-  @keyframes ascend{
-    0%{ top:100%; }
-    45%{ top:0%; }
-    55%{ top:0%; }
-    100%{ top:100%; }
-  }
-  .rail-label{
-    font-size:10px;
-    letter-spacing:0.18em;
-    color:var(--ink-2);
-    writing-mode:vertical-rl;
-    text-orientation:mixed;
-  }
-  @media (max-width: 860px){ .rail{ display:none; } }
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Elevator Labs | Desarrollo de Software, Web, Apps y Data" />
+<meta name="twitter:description" content="Estudio de desarrollo de software en LATAM: web, apps móviles, diseño de producto, data y cloud." />
+<meta name="twitter:image" content="https://elevatorlabs.io/assets/images/team/commitment.jpg" />
 
-  /* ---------- hero ---------- */
-  .hero{
-    position:relative;
-    z-index:2;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:120px 24px 100px;
+<!-- Datos estructurados (Schema.org) para mejor posicionamiento -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Elevator Labs",
+  "url": "https://elevatorlabs.io/",
+  "image": "https://elevatorlabs.io/assets/images/team/commitment.jpg",
+  "description": "Estudio de desarrollo de software en LATAM: desarrollo web y de aplicaciones móviles, diseño de producto (UI/UX), data y analítica, cloud y estrategia digital.",
+  "email": "info@elevatorlabs.io",
+  "telephone": "+573045769553",
+  "areaServed": "LATAM",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "LATAM",
+    "addressCountry": "CO"
+  },
+  "sameAs": [],
+  "knowsAbout": [
+    "Desarrollo de software",
+    "Desarrollo web",
+    "Aplicaciones móviles",
+    "Diseño de producto",
+    "UI/UX",
+    "Data y analítica",
+    "Cloud y DevOps",
+    "Inteligencia artificial",
+    "Estrategia digital"
+  ],
+  "makesOffer": [
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desarrollo web y móvil" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Diseño de producto (UI/UX)" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Data, analítica y machine learning" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cloud e infraestructura" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Estrategia y producto" } }
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+573045769553",
+    "contactType": "sales",
+    "email": "info@elevatorlabs.io",
+    "availableLanguage": ["es", "en"]
   }
-
-  .mark{
-    display:flex;
-    align-items:center;
-    gap:14px;
-    margin-bottom:44px;
-    opacity:0;
-    animation:fadeUp 0.8s ease-out 0.1s forwards;
-  }
-  .mark svg{ width:38px; height:38px; filter:drop-shadow(0 0 10px rgba(45,212,232,0.5)); }
-  .mark-text{
-    font-size:15px;
-    font-weight:600;
-    letter-spacing:0.24em;
-    color:var(--ink-1);
-  }
-
-  .badge{
-    display:inline-flex;
-    align-items:center;
-    gap:9px;
-    padding:8px 18px;
-    border:1px solid var(--line);
-    border-radius:100px;
-    background:rgba(45,212,232,0.04);
-    backdrop-filter:blur(6px);
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    letter-spacing:0.2em;
-    color:var(--cyan);
-    margin-bottom:40px;
-    opacity:0;
-    animation:fadeUp 0.8s ease-out 0.25s forwards;
-  }
-  .badge-dot{
-    width:6px; height:6px; border-radius:50%;
-    background:var(--cyan);
-    box-shadow:0 0 8px 2px rgba(45,212,232,0.9);
-    animation:pulse 1.6s ease-in-out infinite;
-  }
-  @keyframes pulse{
-    0%,100%{ opacity:1; transform:scale(1); }
-    50%{ opacity:0.4; transform:scale(0.75); }
-  }
-
-  h1{
-    font-size:clamp(40px, 8vw, 96px);
-    font-weight:700;
-    line-height:0.98;
-    letter-spacing:-0.02em;
-    text-transform:uppercase;
-    max-width:1100px;
-    opacity:0;
-    animation:fadeUp 0.9s ease-out 0.4s forwards;
-  }
-  h1 .line2{
-    background:linear-gradient(100deg, var(--ink-0) 20%, var(--cyan) 55%, var(--blue) 90%);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
-
-  .sub{
-    margin-top:30px;
-    max-width:600px;
-    font-size:clamp(15px, 1.9vw, 18px);
-    line-height:1.6;
-    color:var(--ink-1);
-    font-weight:400;
-    opacity:0;
-    animation:fadeUp 0.9s ease-out 0.55s forwards;
-  }
-
-  /* countdown, reframed as system status rather than a promo timer */
-  .status-panel{
-    margin-top:64px;
-    display:flex;
-    align-items:stretch;
-    border:1px solid var(--line);
-    border-radius:14px;
-    background:linear-gradient(180deg, rgba(14,23,48,0.6), rgba(10,16,32,0.6));
-    backdrop-filter:blur(10px);
-    box-shadow:0 20px 60px -20px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.03);
-    overflow:hidden;
-    opacity:0;
-    animation:fadeUp 0.9s ease-out 0.7s forwards;
-  }
-  .unit{
-    position:relative;
-    padding:28px 34px;
-    text-align:center;
-  }
-  .unit + .unit{ border-left:1px solid var(--line); }
-  .unit-value{
-    font-family:'JetBrains Mono',monospace;
-    font-size:clamp(34px, 5vw, 52px);
-    font-weight:600;
-    color:var(--cyan);
-    text-shadow:0 0 22px rgba(45,212,232,0.55);
-    line-height:1;
-  }
-  .unit-label{
-    margin-top:10px;
-    font-family:'JetBrains Mono',monospace;
-    font-size:10.5px;
-    letter-spacing:0.22em;
-    color:var(--ink-2);
-  }
-
-  .footnote{
-    margin-top:26px;
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    letter-spacing:0.15em;
-    color:var(--ink-2);
-    opacity:0;
-    animation:fadeUp 0.9s ease-out 0.85s forwards;
-  }
-  .footnote b{ color:var(--cyan-dim); font-weight:600; }
-
-  @keyframes fadeUp{
-    from{ opacity:0; transform:translateY(18px); }
-    to{ opacity:1; transform:translateY(0); }
-  }
-
-  @media (max-width:520px){
-    .unit{ padding:20px 16px; }
-    .status-panel{ flex-wrap:wrap; }
-  }
-</style>
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "¿Cuánto dura un proyecto típico?", "acceptedAnswer": { "@type": "Answer", "text": "La mayoría de nuestros proyectos de diseño y desarrollo toman entre 6 y 12 semanas desde el descubrimiento hasta el lanzamiento." } },
+    { "@type": "Question", "name": "¿Trabajan con equipos internos ya existentes?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Podemos integrarnos con tu equipo de producto, ingeniería o diseño, o hacernos cargo del proyecto completo de punta a punta." } },
+    { "@type": "Question", "name": "¿Qué pasa después del lanzamiento?", "acceptedAnswer": { "@type": "Answer", "text": "Ofrecemos planes de soporte y mejora continua, con monitoreo, mantenimiento y nuevas iteraciones basadas en datos reales de uso." } },
+    { "@type": "Question", "name": "¿Cómo empezamos a trabajar juntos?", "acceptedAnswer": { "@type": "Answer", "text": "Agenda una llamada de descubrimiento sin costo. En 48 horas te enviamos una propuesta con alcance, tiempos y presupuesto." } }
+  ]
+}
+</script>
 </head>
 <body>
 
-<div class="bg-grid"></div>
-<div class="bg-glow"></div>
-<div class="particles" id="particles"></div>
-<div class="bg-vignette"></div>
+<!-- ============ NAVBAR ============ -->
+<header class="navbar" id="navbar">
+  <div class="container">
+    <a href="#top" class="brand">
+      <img class="brand-logo brand-logo--on-dark" src="assets/images/logos/logo-labs-blanco.svg" alt="Elevator Labs" />
+      <img class="brand-logo brand-logo--on-light" src="assets/images/logos/logo-negro.svg" alt="Elevator Labs" />
+    </a>
 
-<div class="rail">
-  <span class="rail-label">NIVEL DE OPERACIÓN</span>
-  <div class="rail-track"><div class="rail-car"></div></div>
+    <nav class="nav-links" aria-label="Navegación principal">
+      <a href="#servicios" data-nav>Servicios</a>
+      <a href="#nosotros" data-nav>Nosotros</a>
+      <a href="#proceso" data-nav>Proceso</a>
+      <a href="#compromiso" data-nav>Compromiso</a>
+      <!-- <a href="#testimonios" data-nav>Clientes</a> -- reactivar junto con la sección de Testimonios -->
+      <a href="#contacto" data-nav>Contacto</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="https://wa.me/573045769553?text=Hola%20Elevator%20Labs%2C%20quiero%20conversar%20sobre%20un%20proyecto." target="_blank" rel="noopener" class="btn btn-primary btn-sm">Hablemos</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#servicios" data-nav>Servicios</a>
+  <a href="#nosotros" data-nav>Nosotros</a>
+  <a href="#proceso" data-nav>Proceso</a>
+  <a href="#compromiso" data-nav>Compromiso</a>
+  <!-- <a href="#testimonios" data-nav>Clientes</a> reactivar junto con la sección de Testimonios -->
+  <a href="#contacto" data-nav>Contacto</a>
 </div>
 
-<section class="hero">
+<main id="top">
 
-  <div class="mark">
-    <svg viewBox="0 0 48 48" fill="none">
-      <path d="M8 40L20 8L20 40" stroke="#2dd4e8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M20 24L38 24" stroke="#2dd4e8" stroke-width="3" stroke-linecap="round"/>
-      <path d="M28 16L38 24L28 32" stroke="#eaf6f8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <span class="mark-text">ELEVATOR&nbsp;LABS</span>
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <canvas class="hero-canvas" id="orbsCanvas" aria-hidden="true"></canvas>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-diagonal" aria-hidden="true"></div>
+
+    <div class="container hero-inner">
+      <span class="hero-eyebrow" data-reveal><span class="dot"></span> Estudio de producto digital</span>
+
+      <h1 class="hero-title" data-reveal style="--reveal-delay:.1s">
+        Diseñamos y construimos productos que <span class="gradient-text">elevan</span> tu negocio
+      </h1>
+
+      <p class="hero-subtitle" data-reveal style="--reveal-delay:.2s">
+        Elevator Labs combina diseño de producto, ingeniería de software y estrategia para llevar tus ideas de cero a lanzamiento — y de lanzamiento a escala.
+      </p>
+
+      <div class="hero-ctas" data-reveal style="--reveal-delay:.3s">
+        <a href="https://wa.me/573045769553?text=Hola%20Elevator%20Labs%2C%20quiero%20iniciar%20un%20proyecto%20de%20software." target="_blank" rel="noopener" class="btn btn-primary">Iniciar un proyecto</a>
+        <a href="#compromiso" class="btn btn-ghost">Nuestro compromiso</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLIENT LOGOS (desactivada) ============
+       La empresa es nueva y todavía no hay logos de clientes reales que mostrar.
+       Se deja el bloque completo comentado para reactivarlo más adelante:
+       basta con quitar este comentario y el de cierre más abajo,
+       y reemplazar los placeholders en assets/images/logos/ por logos reales.
+
+  <section class="logos-section" aria-label="Marcas que confían en nosotros">
+    <div class="container">
+      <p class="logos-label" data-reveal>Marcas que ya elevaron su producto con nosotros</p>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track" id="marqueeTrack">
+        <div class="logo-chip"><img src="assets/images/logos/logo-1.svg" alt="Logo cliente 1" /></div>
+        <div class="logo-chip"><img src="assets/images/logos/logo-2.svg" alt="Logo cliente 2" /></div>
+        <div class="logo-chip"><img src="assets/images/logos/logo-3.svg" alt="Logo cliente 3" /></div>
+        <div class="logo-chip"><img src="assets/images/logos/logo-4.svg" alt="Logo cliente 4" /></div>
+        <div class="logo-chip"><img src="assets/images/logos/logo-5.svg" alt="Logo cliente 5" /></div>
+        <div class="logo-chip"><img src="assets/images/logos/logo-6.svg" alt="Logo cliente 6" /></div>
+        <div class="logo-chip" aria-hidden="true"><img src="assets/images/logos/logo-1.svg" alt="" /></div>
+        <div class="logo-chip" aria-hidden="true"><img src="assets/images/logos/logo-2.svg" alt="" /></div>
+        <div class="logo-chip" aria-hidden="true"><img src="assets/images/logos/logo-3.svg" alt="" /></div>
+        <div class="logo-chip" aria-hidden="true"><img src="assets/images/logos/logo-4.svg" alt="" /></div>
+        <div class="logo-chip" aria-hidden="true"><img src="assets/images/logos/logo-5.svg" alt="" /></div>
+        <div class="logo-chip" aria-hidden="true"><img src="assets/images/logos/logo-6.svg" alt="" /></div>
+      </div>
+    </div>
+  </section>
+  ============ FIN CLIENT LOGOS ============ -->
+
+  <!-- ============ STACK TECNOLÓGICO (reemplaza temporalmente a "Client logos") ============ -->
+  <section class="logos-section" id="stack" aria-label="Tecnologías con las que trabajamos">
+    <div class="container">
+      <p class="logos-label" data-reveal>Tecnologías con las que construimos</p>
+    </div>
+    <div class="marquee">
+      <div class="marquee-track">
+        <!--
+          Logos oficiales de marca en assets/images/tech/, obtenidos de
+          tech-stack-icons.com (paquete npm "tech-stack-icons", licencia MIT).
+        -->
+        <div class="tech-chip"><img src="assets/images/tech/react.svg" alt="React" /><span>React</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/nextjs.svg" alt="Next.js" /><span>Next.js</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/nodejs.svg" alt="Node.js" /><span>Node.js</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/typescript.svg" alt="TypeScript" /><span>TypeScript</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/dotnet.svg" alt=".NET" /><span>.NET</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/csharp.svg" alt="C#" /><span>C#</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/flutter.svg" alt="Flutter" /><span>Flutter</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/aws.svg" alt="AWS" /><span>AWS</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/postgresql.svg" alt="PostgreSQL" /><span>PostgreSQL</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/figma.svg" alt="Figma" /><span>Figma</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/docker.svg" alt="Docker" /><span>Docker</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/anthropic.svg" alt="Anthropic" /><span>Anthropic</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/openai.svg" alt="OpenAI" /><span>OpenAI</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/gemini.svg" alt="Gemini" /><span>Gemini</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/azure.svg" alt="Azure" /><span>Azure</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/bitbucket.svg" alt="Bitbucket" /><span>Bitbucket</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/github.svg" alt="GitHub" /><span>GitHub</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/django.svg" alt="Django" /><span>Django</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/docusaurus.svg" alt="Docusaurus" /><span>Docusaurus</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/grafana.svg" alt="Grafana" /><span>Grafana</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/mongodb.svg" alt="MongoDB" /><span>MongoDB</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/opencv.svg" alt="OpenCV" /><span>OpenCV</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/oracle.svg" alt="Oracle" /><span>Oracle</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/render.svg" alt="Render" /><span>Render</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/tensorflow.svg" alt="TensorFlow" /><span>TensorFlow</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/n8n.svg" alt="n8n" /><span>n8n</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/airflow.svg" alt="Apache Airflow" /><span>Airflow</span></div>
+        <div class="tech-chip"><img src="assets/images/tech/spark.svg" alt="Apache Spark" /><span>Spark</span></div>
+        <!-- duplicado para loop infinito, mismo contenido -->
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/react.svg" alt="" /><span>React</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/nextjs.svg" alt="" /><span>Next.js</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/nodejs.svg" alt="" /><span>Node.js</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/typescript.svg" alt="" /><span>TypeScript</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/dotnet.svg" alt="" /><span>.NET</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/csharp.svg" alt="" /><span>C#</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/flutter.svg" alt="" /><span>Flutter</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/aws.svg" alt="" /><span>AWS</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/postgresql.svg" alt="" /><span>PostgreSQL</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/figma.svg" alt="" /><span>Figma</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/docker.svg" alt="" /><span>Docker</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/anthropic.svg" alt="" /><span>Anthropic</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/openai.svg" alt="" /><span>OpenAI</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/gemini.svg" alt="" /><span>Gemini</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/azure.svg" alt="" /><span>Azure</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/bitbucket.svg" alt="" /><span>Bitbucket</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/github.svg" alt="" /><span>GitHub</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/django.svg" alt="" /><span>Django</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/docusaurus.svg" alt="" /><span>Docusaurus</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/grafana.svg" alt="" /><span>Grafana</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/mongodb.svg" alt="" /><span>MongoDB</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/opencv.svg" alt="" /><span>OpenCV</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/oracle.svg" alt="" /><span>Oracle</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/render.svg" alt="" /><span>Render</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/tensorflow.svg" alt="" /><span>TensorFlow</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/n8n.svg" alt="" /><span>n8n</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/airflow.svg" alt="" /><span>Airflow</span></div>
+        <div class="tech-chip" aria-hidden="true"><img src="assets/images/tech/spark.svg" alt="" /><span>Spark</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICIOS ============ -->
+  <section class="section" id="servicios">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="section-tag">Servicios</span>
+        <h2 class="section-title">Todo lo que necesitas para lanzar y escalar</h2>
+        <p class="section-desc">Desde la primera idea hasta la operación diaria, cubrimos cada etapa del ciclo de vida de tu producto digital.</p>
+      </div>
+
+      <div class="services-list" id="servicesList">
+        <div class="service-item is-open" data-reveal>
+          <button class="service-header" aria-expanded="true">
+            <span class="service-index">01</span>
+            <span class="service-name">Diseño de producto (UI/UX)</span>
+            <span class="service-plus" aria-hidden="true"></span>
+          </button>
+          <div class="service-body">
+            <div class="service-body-inner">
+              <p>Investigación de usuarios, arquitectura de información y diseño de interfaces que convierten. Prototipos listos para validar antes de escribir una sola línea de código.</p>
+              <div class="service-tags"><span>Research</span><span>Wireframes</span><span>Design system</span></div>
+              <a href="#contacto" class="service-link">Conoce más
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-item" data-reveal>
+          <button class="service-header" aria-expanded="false">
+            <span class="service-index">02</span>
+            <span class="service-name">Desarrollo web y móvil</span>
+            <span class="service-plus" aria-hidden="true"></span>
+          </button>
+          <div class="service-body">
+            <div class="service-body-inner">
+              <p>Aplicaciones web y móviles rápidas, escalables y mantenibles, construidas con stacks modernos y buenas prácticas de ingeniería.</p>
+              <div class="service-tags"><span>React</span><span>Node.js</span><span>APIs</span></div>
+              <a href="#contacto" class="service-link">Conoce más
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-item" data-reveal>
+          <button class="service-header" aria-expanded="false">
+            <span class="service-index">03</span>
+            <span class="service-name">Estrategia y producto</span>
+            <span class="service-plus" aria-hidden="true"></span>
+          </button>
+          <div class="service-body">
+            <div class="service-body-inner">
+              <p>Definimos el roadmap correcto: priorización, métricas y validación continua para invertir el esfuerzo donde realmente importa.</p>
+              <div class="service-tags"><span>Roadmapping</span><span>Métricas</span><span>Discovery</span></div>
+              <a href="#contacto" class="service-link">Conoce más
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-item" data-reveal>
+          <button class="service-header" aria-expanded="false">
+            <span class="service-index">04</span>
+            <span class="service-name">Branding e identidad</span>
+            <span class="service-plus" aria-hidden="true"></span>
+          </button>
+          <div class="service-body">
+            <div class="service-body-inner">
+              <p>Marca, tono de voz y sistema visual coherente en cada punto de contacto — para que tu producto se sienta tan bien como funciona.</p>
+              <div class="service-tags"><span>Logo</span><span>Guidelines</span><span>Naming</span></div>
+              <a href="#contacto" class="service-link">Conoce más
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-item" data-reveal>
+          <button class="service-header" aria-expanded="false">
+            <span class="service-index">05</span>
+            <span class="service-name">Cloud e infraestructura</span>
+            <span class="service-plus" aria-hidden="true"></span>
+          </button>
+          <div class="service-body">
+            <div class="service-body-inner">
+              <p>Arquitecturas en la nube seguras y listas para crecer, con CI/CD, monitoreo y buenas prácticas de DevOps desde el día uno.</p>
+              <div class="service-tags"><span>AWS</span><span>CI/CD</span><span>Observabilidad</span></div>
+              <a href="#contacto" class="service-link">Conoce más
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="service-item" data-reveal>
+          <button class="service-header" aria-expanded="false">
+            <span class="service-index">06</span>
+            <span class="service-name">Growth y analítica</span>
+            <span class="service-plus" aria-hidden="true"></span>
+          </button>
+          <div class="service-body">
+            <div class="service-body-inner">
+              <p>Instrumentamos tu producto para medir lo que importa y activamos experimentos de crecimiento basados en datos reales.</p>
+              <div class="service-tags"><span>Analytics</span><span>A/B testing</span><span>SEO</span></div>
+              <a href="#contacto" class="service-link">Conoce más
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY US ============ -->
+  <section class="section section--dark" id="nosotros">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-copy" data-reveal-x="left">
+          <span class="section-tag">Por qué Elevator Labs</span>
+          <h2 class="section-title">Arquitectos y líderes técnicos, obsesionados con el detalle</h2>
+          <p class="section-desc">No somos una fábrica de features. Cada proyecto pasa por arquitectos de software, líderes técnicos y perfiles de altísimo nivel que piensan en el producto completo, no solo en el ticket de turno.</p>
+          <a href="https://wa.me/573045769553?text=Hola%20Elevator%20Labs%2C%20me%20gustar%C3%ADa%20agendar%20una%20llamada." target="_blank" rel="noopener" class="btn btn-light" style="margin-top:2rem;">Agenda una llamada</a>
+        </div>
+
+        <div class="why-items" data-reveal-x="right">
+          <div class="why-item">
+            <span class="why-item-number">01</span>
+            <h3 class="why-item-title">Velocidad con criterio</h3>
+            <p class="why-item-desc">Iteramos rápido sin sacrificar calidad, con entregas semanales visibles.</p>
+          </div>
+          <div class="why-item">
+            <span class="why-item-number">02</span>
+            <h3 class="why-item-title">Diseño + código, un solo equipo</h3>
+            <p class="why-item-desc">Diseñadores e ingenieros trabajan juntos desde el día uno, no en silos.</p>
+          </div>
+          <div class="why-item">
+            <span class="why-item-number">03</span>
+            <h3 class="why-item-title">Comunicación radicalmente clara</h3>
+            <p class="why-item-desc">Reportes simples, sin jerga innecesaria, con acceso directo al equipo.</p>
+          </div>
+          <div class="why-item">
+            <span class="why-item-number">04</span>
+            <h3 class="why-item-title">Pensado para escalar</h3>
+            <p class="why-item-desc">Arquitectura y decisiones técnicas que no te frenan cuando el negocio crece.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESO — "MÉTODO ELEVATOR" (ciclo circular de 5 pisos) ============ -->
+  <section class="section" id="proceso">
+    <div class="container">
+      <div class="section-head section-head--center" data-reveal>
+        <span class="section-tag">Metodología</span>
+        <h2 class="section-title">El Método Elevator: un ciclo que nunca se detiene</h2>
+        <p class="section-desc">Nada de procesos de agencia en línea recta. Es un ciclo de 5 pisos que vuelve a empezar en cada vuelta — cuestionando lo obvio, subiendo más rápido cada vez. Desliza o usa las flechas para recorrer cada piso.</p>
+      </div>
+
+      <div class="method-carousel" data-reveal>
+        <div class="method-track" id="methodTrack" tabindex="0" aria-label="Pisos del método Elevator">
+          <article class="method-card is-active" data-index="0">
+            <span class="method-card-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.7"/><path d="M20 20l-4.3-4.3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <span class="method-card-num">Piso 00</span>
+            <span class="method-card-tag">Planta baja</span>
+            <h3 class="method-card-title">Diagnóstico</h3>
+            <p class="method-card-desc">Entendemos tu punto de partida real: negocio, usuarios y límites técnicos. Sin plantillas ni supuestos heredados de otro proyecto.</p>
+          </article>
+
+          <article class="method-card" data-index="1">
+            <span class="method-card-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20l4.5-1L19 8.5a1.8 1.8 0 0 0 0-2.5l-1-1a1.8 1.8 0 0 0-2.5 0L5 15.5 4 20z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.5 6.5l4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <span class="method-card-num">Piso 01</span>
+            <span class="method-card-tag">Diseño</span>
+            <h3 class="method-card-title">Diseño que reta lo obvio</h3>
+            <p class="method-card-desc">Prototipamos interfaces que cuestionan el patrón esperado de tu industria, no la enésima copia de la competencia.</p>
+          </article>
+
+          <article class="method-card" data-index="2">
+            <span class="method-card-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2c1 3-3 4-3 8a3 3 0 0 0 6 0c0-1-1-2-1-2 2 1 3 3 3 5a5 5 0 0 1-10 0c0-5 3-6 5-11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+            <span class="method-card-num">Piso 02</span>
+            <span class="method-card-tag">Validación</span>
+            <h3 class="method-card-title">Prueba de fuego</h3>
+            <p class="method-card-desc">Validamos con usuarios reales antes de invertir en desarrollo completo. Si algo no funciona, lo sabemos aquí, no después del lanzamiento.</p>
+          </article>
+
+          <article class="method-card" data-index="3">
+            <span class="method-card-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M8 9l-4 4 4 4M16 9l4 4-4 4M13.5 5l-3 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="method-card-num">Piso 03</span>
+            <span class="method-card-tag">Construcción</span>
+            <h3 class="method-card-title">Construcción ágil</h3>
+            <p class="method-card-desc">Construimos en sprints cortos e iteramos en público contigo, con entregas visibles cada semana, no una caja negra de meses.</p>
+          </article>
+
+          <article class="method-card" data-index="4">
+            <span class="method-card-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M3 17l6-6 4 4 8-8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 6h6v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span class="method-card-num">Piso 04 · Ático</span>
+            <span class="method-card-tag">Escala</span>
+            <h3 class="method-card-title">Ascenso continuo</h3>
+            <p class="method-card-desc">Lanzamos por fases, medimos con datos reales y seguimos optimizando después del lanzamiento. La vuelta empieza otra vez, mejor que la anterior.</p>
+          </article>
+        </div>
+
+        <div class="method-controls">
+          <button type="button" class="method-arrow" id="methodPrev" aria-label="Piso anterior">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="method-dots" id="methodDots" role="tablist" aria-label="Selecciona un piso">
+            <button type="button" class="method-dot is-active" data-index="0" role="tab" aria-selected="true" aria-label="Piso 00"></button>
+            <button type="button" class="method-dot" data-index="1" role="tab" aria-selected="false" aria-label="Piso 01"></button>
+            <button type="button" class="method-dot" data-index="2" role="tab" aria-selected="false" aria-label="Piso 02"></button>
+            <button type="button" class="method-dot" data-index="3" role="tab" aria-selected="false" aria-label="Piso 03"></button>
+            <button type="button" class="method-dot" data-index="4" role="tab" aria-selected="false" aria-label="Piso 04"></button>
+          </div>
+          <button type="button" class="method-arrow" id="methodNext" aria-label="Piso siguiente">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PORTFOLIO (desactivada) ============
+       La empresa es nueva y todavía no hay proyectos reales que mostrar.
+       Se deja el bloque completo comentado para reactivarlo más adelante:
+       basta con quitar este comentario y el de cierre más abajo,
+       y reemplazar las imágenes en assets/images/portfolio/ por capturas reales.
+
+  <section class="section" id="proyectos" style="background:var(--white);">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="section-tag">Proyectos</span>
+        <h2 class="section-title">Trabajo que habla por sí solo</h2>
+        <p class="section-desc">
+          Una selección de proyectos recientes. Reemplaza las imágenes en
+          <code>assets/images/portfolio/</code> con capturas o mockups reales de tu trabajo.
+        </p>
+      </div>
+
+      <div class="portfolio-grid">
+        <a class="portfolio-card" href="#" data-reveal>
+          <img src="assets/images/portfolio/project-1.svg" alt="Proyecto 1" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">Fintech · Web App</span>
+            <h3 class="portfolio-name">Nova Bank</h3>
+          </div>
+        </a>
+        <a class="portfolio-card" href="#" data-reveal style="--reveal-delay:.08s">
+          <img src="assets/images/portfolio/project-2.svg" alt="Proyecto 2" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">E-commerce · Mobile</span>
+            <h3 class="portfolio-name">Loop Market</h3>
+          </div>
+        </a>
+        <a class="portfolio-card" href="#" data-reveal style="--reveal-delay:.16s">
+          <img src="assets/images/portfolio/project-3.svg" alt="Proyecto 3" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">SaaS · Dashboard</span>
+            <h3 class="portfolio-name">Pulse Analytics</h3>
+          </div>
+        </a>
+        <a class="portfolio-card" href="#" data-reveal style="--reveal-delay:.24s">
+          <img src="assets/images/portfolio/project-4.svg" alt="Proyecto 4" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">Salud · Web App</span>
+            <h3 class="portfolio-name">Vita Health</h3>
+          </div>
+        </a>
+        <a class="portfolio-card" href="#" data-reveal style="--reveal-delay:.32s">
+          <img src="assets/images/portfolio/project-5.svg" alt="Proyecto 5" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">Logística · Plataforma</span>
+            <h3 class="portfolio-name">Ruta Cero</h3>
+          </div>
+        </a>
+        <a class="portfolio-card" href="#" data-reveal style="--reveal-delay:.4s">
+          <img src="assets/images/portfolio/project-6.svg" alt="Proyecto 6" loading="lazy" />
+          <div class="portfolio-overlay">
+            <span class="portfolio-tag">Educación · Branding</span>
+            <h3 class="portfolio-name">Aula Viva</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+  ============ FIN PORTFOLIO ============ -->
+
+  <!-- ============ NUESTRO COMPROMISO (reemplaza temporalmente a "Portfolio") ============ -->
+  <section class="section" id="compromiso" style="background:var(--white);">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="section-tag">Nuestro compromiso</span>
+        <h2 class="section-title">Lo que puedes esperar al trabajar con nosotros</h2>
+        <p class="section-desc">Somos un estudio joven y lo llevamos como ventaja: cada proyecto recibe atención directa de quienes lo construyen, sin capas intermedias ni procesos inflados.</p>
+      </div>
+
+      <div class="commitment-grid">
+        <ul class="commitment-list">
+          <li class="commitment-item" data-reveal>
+            <span class="commitment-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.7"/></svg>
+            </span>
+            <div>
+              <h3 class="commitment-title">Transparencia total</h3>
+              <p class="commitment-desc">Ves el progreso real del proyecto, sin reportes maquillados ni sorpresas de último momento.</p>
+            </div>
+          </li>
+          <li class="commitment-item" data-reveal style="--reveal-delay:.08s">
+            <span class="commitment-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div>
+              <h3 class="commitment-title">Código de calidad</h3>
+              <p class="commitment-desc">Buenas prácticas, revisiones constantes y arquitectura pensada para durar, no solo para funcionar hoy.</p>
+            </div>
+          </li>
+          <li class="commitment-item" data-reveal style="--reveal-delay:.16s">
+            <span class="commitment-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 5h16v10H8l-4 4V5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+            </span>
+            <div>
+              <h3 class="commitment-title">Comunicación directa</h3>
+              <p class="commitment-desc">Hablas con quien construye tu producto, no con un intermediario que traduce tus mensajes.</p>
+            </div>
+          </li>
+          <li class="commitment-item" data-reveal style="--reveal-delay:.24s">
+            <span class="commitment-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12.5 3H5v7.5L14.5 20a1.5 1.5 0 0 0 2.1 0l4-4a1.5 1.5 0 0 0 0-2.1L12.5 3z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="9" cy="7" r="1.3" fill="currentColor"/></svg>
+            </span>
+            <div>
+              <h3 class="commitment-title">Precios justos y flexibles</h3>
+              <p class="commitment-desc">Modelos de trabajo adaptados a tu etapa: por proyecto, por horas o como socio tecnológico a largo plazo.</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="commitment-media" data-reveal-x="right">
+          <img src="assets/images/team/commitment.jpg" alt="Cliente y equipo de Elevator Labs cerrando un acuerdo con un apretón de manos" width="1200" height="800" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIOS (desactivada) ============
+       La empresa es nueva y todavía no hay testimonios reales de clientes.
+       Se deja el bloque completo comentado para reactivarlo más adelante:
+       basta con quitar este comentario y el de cierre más abajo,
+       y reemplazar nombres/citas/fotos por testimonios reales.
+
+  <section class="section" id="testimonios" style="background:var(--bg-light);">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="section-tag">Clientes</span>
+        <h2 class="section-title">Lo que dicen quienes ya trabajaron con nosotros</h2>
+      </div>
+
+      <div class="testimonial-list">
+        <div class="testimonial-row" data-reveal>
+          <p class="testimonial-quote">"Elevator Labs entendió nuestro negocio desde la primera llamada. El producto que lanzamos superó cada expectativa que teníamos."</p>
+          <div class="testimonial-meta">
+            <div class="testimonial-avatar"><img src="assets/images/team/client-1.svg" alt="" /></div>
+            <div>
+              <div class="testimonial-name">Andrea Reyes</div>
+              <div class="testimonial-role">CEO, Nova Bank</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-row" data-reveal style="--reveal-delay:.1s">
+          <p class="testimonial-quote">"La comunicación fue impecable durante todo el proyecto. Sentimos que teníamos un equipo de producto interno, no un proveedor externo."</p>
+          <div class="testimonial-meta">
+            <div class="testimonial-avatar"><img src="assets/images/team/client-2.svg" alt="" /></div>
+            <div>
+              <div class="testimonial-name">Marco Silva</div>
+              <div class="testimonial-role">Founder, Loop Market</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-row" data-reveal style="--reveal-delay:.2s">
+          <p class="testimonial-quote">"Escalamos de 2 mil a 80 mil usuarios sin reescribir el producto. La arquitectura que diseñaron aguantó todo el crecimiento."</p>
+          <div class="testimonial-meta">
+            <div class="testimonial-avatar"><img src="assets/images/team/client-3.svg" alt="" /></div>
+            <div>
+              <div class="testimonial-name">Julia Fernández</div>
+              <div class="testimonial-role">CTO, Pulse Analytics</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  ============ FIN TESTIMONIOS ============ -->
+
+  <!-- ============ FAQ ============ -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head section-head--center" data-reveal>
+        <span class="section-tag">Preguntas frecuentes</span>
+        <h2 class="section-title">Todo lo que necesitas saber</h2>
+      </div>
+
+      <div class="faq-list" data-reveal>
+        <div class="faq-item is-open">
+          <button class="faq-question" aria-expanded="true">
+            ¿Cuánto dura un proyecto típico?
+            <span class="service-plus" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Depende del alcance, pero la mayoría de nuestros proyectos de diseño y desarrollo toman entre 6 y 12 semanas desde el descubrimiento hasta el lanzamiento.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            ¿Trabajan con equipos internos ya existentes?
+            <span class="service-plus" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Sí. Podemos integrarnos con tu equipo de producto, ingeniería o diseño, o hacernos cargo del proyecto completo de punta a punta.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            ¿Qué pasa después del lanzamiento?
+            <span class="service-plus" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Ofrecemos planes de soporte y mejora continua, con monitoreo, mantenimiento y nuevas iteraciones basadas en datos reales de uso.</div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            ¿Cómo empezamos a trabajar juntos?
+            <span class="service-plus" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Agenda una llamada de descubrimiento sin costo desde la sección de contacto. En 48 horas te enviamos una propuesta con alcance, tiempos y presupuesto.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA FINAL ============ -->
+  <section class="section cta-section">
+    <div class="cta-glow" aria-hidden="true"></div>
+    <div class="container cta-grid">
+      <h2 class="cta-title" data-reveal-x="left">¿Listo para elevar tu próximo proyecto?</h2>
+      <div class="cta-actions" data-reveal-x="right">
+        <a href="https://wa.me/573045769553?text=Hola%20Elevator%20Labs%2C%20quiero%20iniciar%20un%20proyecto%20de%20software." target="_blank" rel="noopener" class="btn btn-primary">Iniciar un proyecto</a>
+        <a href="mailto:info@elevatorlabs.io" class="btn btn-ghost">info@elevatorlabs.io</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACTO ============ -->
+  <section class="section" id="contacto" style="background:var(--white);">
+    <div class="container contact-grid">
+      <div data-reveal>
+        <span class="section-tag">Contacto</span>
+        <h2 class="section-title">Cuéntanos sobre tu proyecto</h2>
+        <p class="section-desc">Completa el formulario o escríbenos directamente — respondemos en menos de 24 horas hábiles.</p>
+
+        <div class="contact-info-item">
+          <span class="contact-info-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 6l8 6 8-6M4 18h16V6H4v12z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div>
+            <div class="contact-info-label">Email</div>
+            <div class="contact-info-value">info@elevatorlabs.io</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 3a2 2 0 0 1-.5 2.1L8 10.1a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c1 .3 2 .5 3 .7a2 2 0 0 1 1.6 2z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div>
+            <div class="contact-info-label">WhatsApp</div>
+            <div class="contact-info-value"><a href="https://wa.me/573045769553?text=Hola%20Elevator%20Labs%2C%20quiero%20conversar%20sobre%20un%20proyecto." target="_blank" rel="noopener">+57 304 576 9553</a></div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <span class="contact-info-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="9" r="2.3" stroke="currentColor" stroke-width="1.7"/></svg>
+          </span>
+          <div>
+            <div class="contact-info-label">Ubicación</div>
+            <div class="contact-info-value">Remoto · LATAM</div>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm" data-reveal style="--reveal-delay:.1s">
+        <div class="form-field">
+          <label for="name">Nombre</label>
+          <input type="text" id="name" name="name" required autocomplete="name" />
+        </div>
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email" />
+        </div>
+        <div class="form-field">
+          <label for="message">Cuéntanos sobre tu proyecto</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;">Enviar mensaje</button>
+        <p class="form-note">Este formulario es una demo estática. Conéctalo a Formspree, Netlify Forms o tu backend preferido para recibir mensajes reales.</p>
+        <div class="form-success" id="formSuccess">¡Gracias! Tu mensaje fue recibido (demo). Te contactaremos pronto.</div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col footer-brand-col">
+        <a href="#top" class="footer-brand">
+          <img class="brand-logo" src="assets/images/logos/logo-labs-blanco.svg" alt="Elevator Labs" />
+        </a>
+        <p class="footer-desc">Estudio de producto digital. Diseño, desarrollo y estrategia para llevar tu negocio al siguiente nivel.</p>
+        <span class="footer-status"><span class="dot"></span> Disponibles para nuevos proyectos</span>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-col-title">Servicios</h4>
+        <ul>
+          <li><a href="#servicios">Diseño de producto</a></li>
+          <li><a href="#servicios">Desarrollo</a></li>
+          <li><a href="#servicios">Estrategia</a></li>
+          <li><a href="#servicios">Branding</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-col-title">Compañía</h4>
+        <ul>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#compromiso">Compromiso</a></li>
+          <!-- <li><a href="#testimonios">Clientes</a></li> reactivar junto con la sección de Testimonios -->
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-col-title">Contacto</h4>
+        <ul>
+          <li><a href="mailto:info@elevatorlabs.io">info@elevatorlabs.io</a></li>
+          <li><a href="https://wa.me/573045769553?text=Hola%20Elevator%20Labs%2C%20me%20gustar%C3%ADa%20agendar%20una%20llamada." target="_blank" rel="noopener">WhatsApp: +57 304 576 9553</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Elevator Labs. Todos los derechos reservados.</span>
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/company/elevator-labs-io" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2 3.77-2 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21h-4V9z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="#" aria-label="X / Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 3H21l-6.6 7.5L22 21h-6.6l-5.2-6.6L4 21H1.9l7-8-7.2-10H8l4.7 6L18.9 3z"/></svg></a>
+      </div>
+    </div>
   </div>
+</footer>
 
-  <div class="badge">
-    <span class="badge-dot"></span>
-    SISTEMAS INICIANDO
-  </div>
-
-  <h1>
-    EL FUTURO ESTÁ<br>
-    <span class="line2">ASCENDIENDO.</span>
-  </h1>
-
-  <p class="sub">
-    Estamos construyendo la próxima frontera de la tecnología de elevación.
-    Algo monumental está por llegar.
-  </p>
-
-  <div class="status-panel">
-    <div class="unit"><div class="unit-value" id="d">00</div><div class="unit-label">DÍAS</div></div>
-    <div class="unit"><div class="unit-value" id="h">00</div><div class="unit-label">HORAS</div></div>
-    <div class="unit"><div class="unit-value" id="m">00</div><div class="unit-label">MINS</div></div>
-    <div class="unit"><div class="unit-value" id="s">00</div><div class="unit-label">SEGS</div></div>
-  </div>
-
-  <div class="footnote">
-    ESTADO&nbsp;DEL&nbsp;SISTEMA: <b>ASCENSO&nbsp;EN&nbsp;PROGRESO</b>
-  </div>
-
-</section>
-
-<script>
-  // Rising particle field
-  const field = document.getElementById('particles');
-  const COUNT = 34;
-  for (let i = 0; i < COUNT; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const left = Math.random() * 100;
-    const duration = 7 + Math.random() * 9;
-    const delay = Math.random() * 14;
-    const size = 1.5 + Math.random() * 2;
-    p.style.left = left + 'vw';
-    p.style.width = size + 'px';
-    p.style.height = size + 'px';
-    p.style.animationDuration = duration + 's';
-    p.style.animationDelay = delay + 's';
-    field.appendChild(p);
-  }
-
-  // Countdown — set target launch date here
-  const target = new Date();
-  target.setDate(target.getDate() + 45);
-
-  function pad(n){ return String(n).padStart(2,'0'); }
-
-  function tick(){
-    const now = new Date();
-    let diff = Math.max(0, target - now);
-    const d = Math.floor(diff / 86400000); diff -= d * 86400000;
-    const h = Math.floor(diff / 3600000); diff -= h * 3600000;
-    const m = Math.floor(diff / 60000); diff -= m * 60000;
-    const s = Math.floor(diff / 1000);
-    document.getElementById('d').textContent = pad(d);
-    document.getElementById('h').textContent = pad(h);
-    document.getElementById('m').textContent = pad(m);
-    document.getElementById('s').textContent = pad(s);
-  }
-  tick();
-  setInterval(tick, 1000);
-</script>
-
+<script src="js/main.js"></script>
 </body>
 </html>
